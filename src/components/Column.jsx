@@ -2,10 +2,10 @@ import { Box, Button, Input, Text } from "@chakra-ui/react";
 import { zusColor } from "../theme/colors";
 import Task from "./Task";
 import { useStore } from "../store";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import AddTask from "./AddTask";
 
 export default function Column({ state }) {
-  const [text, setText] = useState("");
   const [open, setOpen] = useState(false);
   const [drop, setDrop] = useState(false);
 
@@ -18,7 +18,17 @@ export default function Column({ state }) {
   const draggedTask = useStore((store) => store.draggedTask);
   const moveTask = useStore((store) => store.moveTask);
 
-  const addTask = useStore((store) => store.addTask);
+  const inpRef = useRef(null);
+
+  useEffect(() => {
+    if (open) {
+      inpRef.current.focus();
+    }
+  }, [open]);
+
+  function toggleOpen() {
+    setOpen((prev) => !prev);
+  }
 
   return (
     <Box
@@ -51,48 +61,17 @@ export default function Column({ state }) {
         <Button
           size="sm"
           _hover={{ bg: zusColor.grayLight }}
-          onClick={() => setOpen((prev) => !prev)}
+          onClick={toggleOpen}
         >
           Add
         </Button>
       </Box>
 
-      {/* <Task title="Todo" /> */}
       {tasks.map((task) => (
         <Task title={task.title} key={task.title} />
       ))}
 
-      {open && (
-        <Box
-          position="absolute"
-          top="48%"
-          left="50%"
-          transform="translateX(-50%)"
-          bg="rgba(0,0,0,0.3)"
-          p={4}
-          borderRadius="6px"
-        >
-          <Box>
-            <Input
-              onChange={(e) => setText(e.target.value)}
-              value={text}
-            ></Input>
-            <Button
-              onClick={() => {
-                if (text.trim() !== "") {
-                  addTask(text, state);
-                  setText("");
-                  setOpen(false);
-                }
-              }}
-              size="sm"
-              mt={4}
-            >
-              Submit
-            </Button>
-          </Box>
-        </Box>
-      )}
+      {open && <AddTask toggleOpen={toggleOpen} ref={inpRef} state={state} />}
     </Box>
   );
 }
