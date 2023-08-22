@@ -1,9 +1,13 @@
+import React, { useEffect, useState } from "react";
 import { Box } from "@chakra-ui/react";
 import { zusColor } from "../theme/colors";
 import { useStore } from "../store";
 import { DeleteIcon } from "@chakra-ui/icons";
+import ConfettiExplosion from "react-confetti-explosion";
 
 export default function Task({ title }) {
+  const [done, setDone] = useState(false);
+
   const task = useStore((store) =>
     store.tasks.find((task) => task.title === title)
   );
@@ -23,6 +27,13 @@ export default function Task({ title }) {
         return zusColor.grayLight;
     }
   }
+
+  useEffect(() => {
+    if (task.status === "Done") {
+      setDone(true);
+    }
+  }, [task.status]);
+
   return (
     <Box
       bg="white"
@@ -50,6 +61,8 @@ export default function Task({ title }) {
           {task.status}
         </Box>
       </Box>
+
+      {done && <ConfettiExplosion />}
     </Box>
   );
 }
