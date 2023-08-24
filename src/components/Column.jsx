@@ -30,6 +30,24 @@ export default function Column({ state }) {
     setOpen((prev) => !prev);
   }
 
+  function findProgress() {
+    let progress;
+    switch (state) {
+      case "Planned":
+        progress = 0;
+        break;
+      case "Ongoing":
+        progress = null;
+        break;
+      case "Done":
+        progress = 100;
+        break;
+      default:
+        progress = 0;
+    }
+    return progress;
+  }
+
   return (
     <Box
       bg={zusColor.grayDark}
@@ -38,7 +56,7 @@ export default function Column({ state }) {
       width="33%"
       maxW="20rem"
       mx="0.5rem"
-      borderRadius="4px"
+      borderRadius="12px"
       padding="0.5rem"
       border="dashed 4px transparent"
       borderColor={drop ? "white" : "transparent"}
@@ -51,13 +69,20 @@ export default function Column({ state }) {
         e.preventDefault();
       }}
       onDrop={(e) => {
-        moveTask(draggedTask, state);
+        moveTask(draggedTask.title, state, findProgress(), draggedTask.id);
         setDraggedTask(null);
         setDrop(false);
       }}
     >
-      <Box display="flex" justifyContent="space-between" p={1}>
-        <Text>{state}</Text>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        p={1}
+        alignItems="center"
+      >
+        <Text fontSize="18px" fontWeight="700">
+          {state}
+        </Text>
         <Button
           size="sm"
           _hover={{ bg: zusColor.grayLight }}
@@ -68,7 +93,7 @@ export default function Column({ state }) {
       </Box>
 
       {tasks.map((task) => (
-        <Task title={task.title} key={task.title} />
+        <Task id={task.id} key={task.id} />
       ))}
 
       {open && <AddTask toggleOpen={toggleOpen} ref={inpRef} state={state} />}

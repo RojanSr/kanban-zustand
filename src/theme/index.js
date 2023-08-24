@@ -10,13 +10,6 @@ export const theme = extendTheme({
         minHeight: "100vh",
         fontFamily: "Helvetica",
       },
-      // a: {
-      //   _hover: {
-      //     textDecoration: "none !important",
-      //     outline: "none !important",
-      //     border: "0px !important",
-      //   },
-      // },
     },
   },
 });

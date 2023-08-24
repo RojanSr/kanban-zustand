@@ -1,6 +1,9 @@
-import { Box, Button, Input } from "@chakra-ui/react";
+import { Box, Button, Input, Text } from "@chakra-ui/react";
 import React, { forwardRef, useState } from "react";
 import { useStore } from "../store";
+import { TbLayoutKanban } from "react-icons/tb";
+import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
+import { zusColor } from "../theme/colors";
 
 const AddTask = forwardRef((props, ref) => {
   const [text, setText] = useState("");
@@ -9,7 +12,21 @@ const AddTask = forwardRef((props, ref) => {
 
   function handleSubmit() {
     if (text.trim() !== "") {
-      addTask(text, props.state);
+      let progressVal;
+      switch (props.state) {
+        case "Planned":
+          progressVal = 0;
+          break;
+        case "Ongoing":
+          progressVal = null;
+          break;
+        case "Done":
+          progressVal = 100;
+          break;
+        default:
+          progressVal = 0;
+      }
+      addTask(text, props.state, progressVal, crypto.randomUUID());
       setText("");
       props.toggleOpen();
     }
@@ -19,28 +36,61 @@ const AddTask = forwardRef((props, ref) => {
     setText("");
     props.toggleOpen();
   }
+
+  function handleKeyPress(e) {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+    if (e.key === "Escape") {
+      handleClose();
+    }
+  }
   return (
     <Box
       position="absolute"
-      top="48%"
+      top="50%"
       left="50%"
-      transform="translateX(-50%)"
-      bg="rgba(0,0,0,0.3)"
+      transform="translate(-50%, -50%)"
+      bg="#00171F"
       p={4}
       borderRadius="6px"
+      onKeyUp={handleKeyPress}
     >
+      <Box display="flex" w="inherit" justifyContent="center" mb={2}>
+        <Text fontSize="18px" fontWeight="700">
+          Add Task
+        </Text>
+      </Box>
       <Box>
         <Input
           onChange={(e) => setText(e.target.value)}
           value={text}
           ref={ref}
+          my={4}
         ></Input>
-        <Box display="flex" alignItems="center" gap="12px">
-          <Button onClick={handleSubmit} size="sm" mt={4}>
-            Submit
+        <Box
+          display="flex"
+          alignItems="center"
+          gap="12px"
+          justifyContent="center"
+        >
+          <Button
+            onClick={handleSubmit}
+            size="sm"
+            mt={4}
+            colorScheme="green"
+            _hover={{ transform: "scale(1.1)", transition: "0.2s ease-in-out" }}
+          >
+            <CheckIcon boxSize={4} />
           </Button>
-          <Button onClick={handleClose} size="sm" mt={4}>
-            Close
+          <Button
+            onClick={handleClose}
+            size="sm"
+            mt={4}
+            colorScheme="red"
+            _hover={{ transform: "scale(1.1)", transition: "0.2s ease-in-out" }}
+          >
+            <CloseIcon boxSize={4} />
           </Button>
         </Box>
       </Box>
