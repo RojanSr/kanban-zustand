@@ -6,5 +6,5 @@ export const zusColor = {
   grayLight: "#cccccc",
   planned: "#B2A198",
   ongoing: "#96c6ca",
-  done: "#1aad0f",
+  done: "#60A561",
 };
