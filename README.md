@@ -1,3 +1,3 @@
 # Kanban App For Productivity
 
-Live Site Here: [Checkout](https://64e34b62d46813070d4983eb--benevolent-pastelito-baceae.netlify.app/)
+Live Site Here: <a href="https://64e6e006f008f03fb59cc295--benevolent-pastelito-baceae.netlify.app/" target="_blank">Checkout</a>
