@@ -40,7 +40,7 @@ export default function Task({ id }) {
       // Synchronize audio with confetti
       setTimeout(() => {
         setDone(true);
-      }, 1000);
+      }, 700);
 
       // Add Done task to completedTask object only if it doesn't already exist. Useful to remove duplicate elements
       if (!completedTasksId.includes(task.id)) {
