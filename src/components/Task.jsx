@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Box, Progress, background } from "@chakra-ui/react";
+import { Box, Progress } from "@chakra-ui/react";
 import { zusColor } from "../theme/colors";
 import { useStore } from "../store";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { DeleteIcon } from "@chakra-ui/icons";
 import ConfettiExplosion from "react-confetti-explosion";
 import TaskCompletedSfx from "../assets/sounds/TaskCompleted.mp3";
 
@@ -75,11 +75,6 @@ export default function Task({ id }) {
     >
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Box>{task.title}</Box>
-        {task.status === "Ongoing" && (
-          <Box cursor="pointer">
-            <EditIcon />
-          </Box>
-        )}
       </Box>
       <Progress
         value={task.progress}
