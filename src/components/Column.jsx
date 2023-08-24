@@ -48,6 +48,21 @@ export default function Column({ state }) {
     return progress;
   }
 
+  let statusColor;
+  switch (state) {
+    case "Planned":
+      statusColor = zusColor.planned;
+      break;
+    case "Ongoing":
+      statusColor = zusColor.ongoing;
+      break;
+    case "Done":
+      statusColor = zusColor.done;
+      break;
+    default:
+      statusColor = zusColor.planned;
+  }
+
   return (
     <Box
       bg={zusColor.grayDark}
@@ -80,9 +95,12 @@ export default function Column({ state }) {
         p={1}
         alignItems="center"
       >
-        <Text fontSize="18px" fontWeight="700">
-          {state}
-        </Text>
+        <Box display="flex" alignItems="center" gap="8px">
+          <Box w="20px" h="20px" bg={statusColor} borderRadius="50%"></Box>
+          <Text fontSize="18px" fontWeight="700">
+            {state}
+          </Text>
+        </Box>
         <Button
           size="sm"
           _hover={{ bg: zusColor.grayLight }}

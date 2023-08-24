@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Progress } from "@chakra-ui/react";
+import { Box, Progress, background } from "@chakra-ui/react";
 import { zusColor } from "../theme/colors";
 import { useStore } from "../store";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
@@ -40,7 +40,7 @@ export default function Task({ id }) {
       // Synchronize audio with confetti
       setTimeout(() => {
         setDone(true);
-      }, 300);
+      }, 1000);
 
       // Add Done task to completedTask object only if it doesn't already exist. Useful to remove duplicate elements
       if (!completedTasksId.includes(task.id)) {
