@@ -1,9 +1,22 @@
-import { Box, Button, Input, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  keyframes,
+  usePrefersReducedMotion,
+  Text,
+  Circle,
+} from "@chakra-ui/react";
 import { zusColor } from "../theme/colors";
 import Task from "./Task";
 import { useStore } from "../store";
 import { useEffect, useRef, useState } from "react";
 import AddTask from "./AddTask";
+import { AddIcon } from "@chakra-ui/icons";
+
+const pulsate = keyframes`
+from {box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.8);}
+to {box-shadow: 0 0 0 12px rgba(0, 0, 0, 0);}
+`;
 
 export default function Column({ state }) {
   const [open, setOpen] = useState(false);
@@ -63,6 +76,9 @@ export default function Column({ state }) {
       statusColor = zusColor.planned;
   }
 
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  const animation = prefersReducedMotion ? undefined : `${pulsate} 2s infinite`;
   return (
     <Box
       bg={zusColor.grayDark}
@@ -70,7 +86,7 @@ export default function Column({ state }) {
       color="#fff"
       width="33%"
       maxW="20rem"
-      mx="0.5rem"
+      minW="16rem"
       borderRadius="12px"
       padding="0.5rem"
       border="dashed 4px transparent"
@@ -96,21 +112,32 @@ export default function Column({ state }) {
         alignItems="center"
       >
         <Box display="flex" alignItems="center" gap="8px">
-          <Box w="20px" h="20px" bg={statusColor} borderRadius="50%"></Box>
+          <Box
+            w="20px"
+            h="20px"
+            bg={statusColor}
+            borderRadius="50%"
+            animation={tasks.length ? animation : "none"}
+          ></Box>
           <Text fontSize="18px" fontWeight="700">
             {state}
           </Text>
         </Box>
-        <Button
-          size="sm"
-          _hover={{ bg: zusColor.grayLight }}
-          onClick={toggleOpen}
-        >
+        {/* <Button size="sm" _hover={{ bg: zusColor.grayLight }}>
           Add
-        </Button>
+        </Button> */}
+        <Circle
+          onClick={toggleOpen}
+          cursor="pointer"
+          p={1.5}
+          _hover={{ background: zusColor.gray }}
+          transition="0.1s ease-in"
+        >
+          <AddIcon />
+        </Circle>
       </Box>
 
-      {tasks.map((task) => (
+      {tasks.reverse().map((task) => (
         <Task id={task.id} key={task.id} />
       ))}
 

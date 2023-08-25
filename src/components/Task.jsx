@@ -56,6 +56,7 @@ export default function Task({ id }) {
 
   return (
     <Box
+      // bg="whiteAlpha.800"
       bg="white"
       color="black"
       borderRadius="6px"

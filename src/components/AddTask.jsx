@@ -47,7 +47,7 @@ const AddTask = forwardRef((props, ref) => {
   }
   return (
     <Box
-      position="absolute"
+      position="fixed"
       top="50%"
       left="50%"
       transform="translate(-50%, -50%)"
@@ -55,6 +55,7 @@ const AddTask = forwardRef((props, ref) => {
       p={4}
       borderRadius="6px"
       onKeyUp={handleKeyPress}
+      zIndex="9"
     >
       <Box display="flex" w="inherit" justifyContent="center" mb={2}>
         <Text fontSize="18px" fontWeight="700">
