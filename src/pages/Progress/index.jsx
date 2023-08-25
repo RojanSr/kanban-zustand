@@ -11,6 +11,23 @@ const UserProgress = () => {
   const incrementIncr = useStore((store) => store.incrementIncr);
   const percentage = useStore((store) => store.progress.percentage);
   const incrementPercentage = useStore((store) => store.incrementPercentage);
+  const setTasksCompletedInRange = useStore(
+    (store) => store.setTasksCompletedInRange
+  );
+  const taskCompletedInRange = useStore(
+    (store) => store.progress.taskCompletedInRange
+  );
+  const range = useStore((store) => store.progress.range);
+  const setRange = useStore((store) => store.setRange);
+  const prevThreshold = useStore((store) => store.progress.prevThreshold);
+
+  function updatePercentage() {
+    let per = (taskCompletedInRange / range) * 100;
+    if (per === 100) {
+      per = 0;
+    }
+    incrementPercentage(per);
+  }
 
   useEffect(() => {
     if (completedTasks.length >= threshold) {
@@ -18,12 +35,19 @@ const UserProgress = () => {
       setLevel();
       incrementThreshold();
     }
-    let per = (completedTasks.length / threshold) * 100;
-    if (per === 100) {
-      per = 0;
-    }
-    incrementPercentage(per);
+    // Show how many tasks is completed in prevThreshold and current Threshold range
+    setTasksCompletedInRange(completedTasks.length - prevThreshold);
+    updatePercentage();
   }, [completedTasks.length]);
+
+  useEffect(() => {
+    let thresRange = threshold - prevThreshold;
+    setRange(thresRange);
+  }, [threshold]);
+
+  useEffect(() => {
+    updatePercentage();
+  }, [taskCompletedInRange]);
 
   return (
     <Box

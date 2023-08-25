@@ -4,7 +4,15 @@ import { devtools, persist } from "zustand/middleware";
 
 const store = (set) => ({
   // threshold means how many task it takes to reach another level
-  progress: { level: 1, incr: 10, threshold: 10, percentage: 0 },
+  progress: {
+    level: 1,
+    incr: 10,
+    prevThreshold: 0, // lower bound for percentage
+    threshold: 10, // upper bound for percentage
+    range: 10,
+    percentage: 0,
+    taskCompletedInRange: 0,
+  },
   setLevel: () =>
     set((prev) => ({
       progress: { ...prev.progress, level: prev.progress.level + 1 },
@@ -14,6 +22,7 @@ const store = (set) => ({
     set((prev) => ({
       progress: {
         ...prev.progress,
+        prevThreshold: prev.progress.threshold,
         threshold: prev.progress.threshold + prev.progress.incr,
       },
     })),
@@ -25,6 +34,20 @@ const store = (set) => ({
   incrementPercentage: (per) =>
     set((prev) => ({
       progress: { ...prev.progress, percentage: per },
+    })),
+  setTasksCompletedInRange: (n) =>
+    set((prev) => ({
+      progress: {
+        ...prev.progress,
+        taskCompletedInRange: n,
+      },
+    })),
+  setRange: (n) =>
+    set((prev) => ({
+      progress: {
+        ...prev.progress,
+        range: n,
+      },
     })),
   tasks: [],
   draggedTask: null,
