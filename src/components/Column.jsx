@@ -14,8 +14,8 @@ import AddTask from "./AddTask";
 import { AddIcon } from "@chakra-ui/icons";
 
 const pulsate = keyframes`
-from {box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.8);}
-to {box-shadow: 0 0 0 12px rgba(0, 0, 0, 0);}
+from {box-shadow: 0 0 0 0px rgba(255, 255, 255, 0.2);}
+to {box-shadow: 0 0 0 14px rgba(255, 255, 255, 0);}
 `;
 
 export default function Column({ state }) {
