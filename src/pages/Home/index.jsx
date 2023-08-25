@@ -2,11 +2,13 @@ import React from "react";
 import Stats from "../../components/Stats";
 import { Box } from "@chakra-ui/react";
 import Column from "../../components/Column";
+import UserProgress from "../Progress";
 
 const HomePage = () => {
   return (
     <>
       <Stats />
+      <UserProgress />
       <Box
         className="App"
         display="flex"

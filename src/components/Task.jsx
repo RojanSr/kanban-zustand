@@ -4,10 +4,8 @@ import { zusColor } from "../theme/colors";
 import { useStore } from "../store";
 import { DeleteIcon } from "@chakra-ui/icons";
 import ConfettiExplosion from "react-confetti-explosion";
-import TaskCompletedSfx from "../assets/sounds/TaskCompleted.mp3";
 
 export default function Task({ id }) {
-  const audio = new Audio(TaskCompletedSfx);
   const [done, setDone] = useState(false);
   const task = useStore((store) => store.tasks.find((task) => task.id === id));
 
@@ -35,12 +33,7 @@ export default function Task({ id }) {
     // Array of task id with status "Done"
     const completedTasksId = completedTasks.map((el) => el.id);
     if (task.status === "Done") {
-      audio.play();
-
-      // Synchronize audio with confetti
-      setTimeout(() => {
-        setDone(true);
-      }, 700);
+      setDone(true);
 
       // Add Done task to completedTask object only if it doesn't already exist. Useful to remove duplicate elements
       if (!completedTasksId.includes(task.id)) {
