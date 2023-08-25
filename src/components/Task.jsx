@@ -33,10 +33,9 @@ export default function Task({ id }) {
     // Array of task id with status "Done"
     const completedTasksId = completedTasks.map((el) => el.id);
     if (task.status === "Done") {
-      setDone(true);
-
       // Add Done task to completedTask object only if it doesn't already exist. Useful to remove duplicate elements
       if (!completedTasksId.includes(task.id)) {
+        setDone(true);
         setCompletedTasks(task.title, task.id);
       }
     } else {

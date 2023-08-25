@@ -66,6 +66,8 @@ const UserProgress = () => {
           width="500px"
           borderRadius="8px"
           value={percentage}
+          isAnimated
+          hasStripe
         />
         <Text color="white">{parseInt(percentage)}%</Text>
       </Box>
