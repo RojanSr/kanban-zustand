@@ -1,7 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 import { zusColor } from "./colors";
 import backgroundImage from "../assets/svgs/background.svg";
-import "@fontsource/roboto/400.css";
 
 export const theme = extendTheme({
   styles: {
@@ -13,7 +12,7 @@ export const theme = extendTheme({
         backgroundPosition: "center",
         margin: "0",
         minHeight: "100vh",
-        fontFamily: `'Roboto'`,
+        fontFamily: `'Poppins', sans-serif`,
       },
     },
   },

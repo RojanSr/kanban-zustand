@@ -3,6 +3,7 @@ import Stats from "../../components/Stats";
 import { Box } from "@chakra-ui/react";
 import Column from "../../components/Column";
 import UserProgress from "../Progress";
+import AdviceCard from "../../components/Advice";
 
 const HomePage = () => {
   return (
@@ -21,6 +22,9 @@ const HomePage = () => {
         <Column state="Planned" />
         <Column state="Ongoing" />
         <Column state="Done" />
+      </Box>
+      <Box display="flex" justifyContent="center" mt={8}>
+        <AdviceCard />
       </Box>
     </>
   );
