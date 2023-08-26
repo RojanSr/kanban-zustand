@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useStore } from "../../store";
 import { Box, Progress, Text } from "@chakra-ui/react";
+import { zusColor } from "../../theme/colors";
 
 const UserProgress = () => {
   const completedTasks = useStore((store) => store.completedTasks);
@@ -57,19 +58,39 @@ const UserProgress = () => {
       alignItems="center"
       gap="10px"
     >
-      <Text color="#fff" fontSize="16px">
-        Level {level}
-      </Text>
       <Box display="flex" alignItems="center" gap="10px">
-        <Progress
-          size="md"
-          width="500px"
-          borderRadius="8px"
-          value={percentage}
-          isAnimated
-          hasStripe
-        />
-        <Text color="white">{parseInt(percentage)}%</Text>
+        <Box position="relative">
+          <Progress
+            size="lg"
+            width={{ base: "270px", md: "500px" }}
+            borderRadius="8px"
+            value={percentage}
+            isAnimated
+            hasStripe
+          />
+          <Text
+            color="#fff"
+            fontSize="16px"
+            fontWeight="700"
+            position="absolute"
+            bottom="100%"
+            left="10px"
+          >
+            Level {level}
+          </Text>
+          <Text
+            position="absolute"
+            right="4px"
+            bottom="-2px"
+            fontSize="14px"
+            fontWeight="700"
+          >
+            {parseInt(percentage)}%
+          </Text>
+        </Box>
+        <Text color={zusColor.done}>
+          {taskCompletedInRange}/{threshold}
+        </Text>
       </Box>
     </Box>
   );

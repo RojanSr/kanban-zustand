@@ -37,7 +37,7 @@ const Header = () => {
         px={{ base: 5, md: 12 }}
         py={5}
         bg="blackAlpha.600"
-        color="whiteAlpha.700"
+        color="white"
         fontWeight="700"
       >
         <Box display="flex" alignItems="center" gap="12px">

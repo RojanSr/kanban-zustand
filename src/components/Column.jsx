@@ -91,6 +91,7 @@ export default function Column({ state }) {
       padding="0.5rem"
       border="dashed 4px transparent"
       borderColor={drop ? "white" : "transparent"}
+      boxShadow="0px 17px 36px -8px rgba(0,0,0,0.75)"
       onDragOver={(e) => {
         setDrop(true);
         e.preventDefault();
