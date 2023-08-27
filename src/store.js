@@ -64,7 +64,8 @@ const store = (set) => ({
     set((prevState) => ({
       tasks: prevState.tasks.filter((task) => task.id !== id),
     })),
-  setDraggedTask: (title, id) => set({ draggedTask: { title, id } }),
+  setDraggedTask: (title, id, status) =>
+    set({ draggedTask: { title, id, status } }),
   moveTask: (title, status, progress, id) =>
     set((prevState) => ({
       tasks: prevState.tasks.map((task) =>

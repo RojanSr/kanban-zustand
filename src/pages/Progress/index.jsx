@@ -32,12 +32,14 @@ const UserProgress = () => {
 
   useEffect(() => {
     if (completedTasks.length >= threshold) {
+      setTasksCompletedInRange(0);
       incrementIncr();
       setLevel();
       incrementThreshold();
+    } else {
+      // Show how many tasks is completed in prevThreshold and current Threshold range
+      setTasksCompletedInRange(completedTasks.length - prevThreshold);
     }
-    // Show how many tasks is completed in prevThreshold and current Threshold range
-    setTasksCompletedInRange(completedTasks.length - prevThreshold);
     updatePercentage();
   }, [completedTasks.length]);
 

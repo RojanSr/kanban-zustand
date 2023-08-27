@@ -63,7 +63,9 @@ export default function Task({ id }) {
       cursor="move"
       draggable
       onDragStart={() => {
-        setDraggedTask(task.title, task.id);
+        if (task.status != "Done") {
+          setDraggedTask(task.title, task.id, task.status);
+        }
       }}
     >
       <Box display="flex" justifyContent="space-between" alignItems="center">
