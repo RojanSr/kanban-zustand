@@ -7,7 +7,6 @@ import axios from "axios";
 const AdviceCard = () => {
   async function fetchAdvice() {
     const res = await axios.get("https://api.themotivate365.com/stoic-quote");
-    console.log("Fetching");
     return res.data;
   }
 
@@ -19,7 +18,7 @@ const AdviceCard = () => {
     refetchOnWindowFocus: false,
   });
 
-  if (isLoading || isFetching) {
+  if (isFetching || isLoading) {
     return (
       <Box
         display="flex"
@@ -34,7 +33,7 @@ const AdviceCard = () => {
         minH="150px"
         minW={{ base: "270px", md: "380px" }}
       >
-        <Spinner />
+        <Spinner color="hsl(193, 38%, 86%)" size="lg" />
       </Box>
     );
   }
@@ -55,16 +54,16 @@ const AdviceCard = () => {
       position="relative"
     >
       <Text color="hsl(150, 100%, 66%)" fontSize="12px" letterSpacing="1px">
-        {data.author}
+        {data.author ? data.author : "Anonymous"}
       </Text>
       <Text
-        as="quote"
+        as="q"
         color="hsl(193, 38%, 86%)"
         fontSize="18px"
         fontWeight="700"
         lineHeight="7"
       >
-        "{data.quote}"
+        {data.quote.replace(/[!@#$^*]/g, "")}
       </Text>
       <Center
         position="absolute"
