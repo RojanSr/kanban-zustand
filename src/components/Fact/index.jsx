@@ -9,6 +9,7 @@ import {
   ModalCloseButton,
   useDisclosure,
   Spinner,
+  Divider,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { zusColor } from "../../theme/colors";
@@ -61,20 +62,23 @@ const FactCard = (props) => {
           top="30%"
           transform="translate(50%, -50%)"
         >
-          <ModalHeader mb={-5}>
+          <ModalHeader mb={-4}>
             {doneMessages[Math.floor(Math.random() * doneMessages.length)]}
           </ModalHeader>
+          <Box px={5} my={2}>
+            <Divider />
+          </Box>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <Text fontWeight="400" fontSize="12px" mb={3}>
-              Consider taking a break
-            </Text>
-            <Text fontSize="18px">Here's a fun fact:</Text>
+            <Text fontSize="16px">Cool your brain with a fun fact</Text>
 
             {isLoading || isFetching ? (
               <Spinner />
             ) : (
-              <Text fontSize="20px" mt={3} fontWeight="600">
+              <Text mt={3} fontSize="14px">
+                <Text as="span" fontWeight="600" color={zusColor.done}>
+                  Fun Fact:{" "}
+                </Text>
                 {data?.fact}
               </Text>
             )}
