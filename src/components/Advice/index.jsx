@@ -1,6 +1,6 @@
-import { Box, Center, Spinner, Text } from "@chakra-ui/react";
+import { Box, Center, Divider, Spinner, Text } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import { BsFillDice5Fill } from "react-icons/bs";
+import { BsFillDice5Fill, BsPauseFill } from "react-icons/bs";
 import React from "react";
 import axios from "axios";
 
@@ -68,6 +68,11 @@ const AdviceCard = () => {
           >
             {data?.quote.replace(/[!@#$^*]/g, "")}
           </Text>
+          <Box display="flex" alignItems="center" width="100%">
+            <Divider />
+            <BsPauseFill color="hsl(193, 38%, 86%)" fontSize="52px" />
+            <Divider />
+          </Box>
           <Center
             position="absolute"
             bottom="-25px"
