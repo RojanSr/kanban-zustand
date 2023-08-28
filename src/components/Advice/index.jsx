@@ -13,7 +13,7 @@ const AdviceCard = () => {
         },
       };
       const res = await axios.get(
-        "https://api.api-ninjas.com/v1/quotes",
+        "https://api.api-ninjas.com/v1/quotes?category=inspirational",
         config
       );
       return res.data[0];
@@ -38,11 +38,11 @@ const AdviceCard = () => {
       textAlign="center"
       flexDirection="column"
       bg="hsl(217, 19%, 24%)"
-      gap="16px"
+      // gap="16px"
       borderRadius="12px"
       color="#fff"
       py={6}
-      px={4}
+      px={6}
       maxW={{ base: "290px", md: "420px" }}
       minW={{ base: "270px", md: "380px" }}
       minH="150px"
@@ -65,8 +65,12 @@ const AdviceCard = () => {
             fontSize="18px"
             fontWeight="700"
             lineHeight="7"
+            mt={2}
+            mb={1}
           >
-            {data?.quote.replace(/[!@#$^*]/g, "")}
+            {data?.quote?.length > 200
+              ? refetch()
+              : data?.quote?.replace(/[!@#$^*]/g, "")}
           </Text>
           <Box display="flex" alignItems="center" width="100%">
             <Divider />
