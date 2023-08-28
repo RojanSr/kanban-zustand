@@ -6,8 +6,20 @@ import axios from "axios";
 
 const AdviceCard = () => {
   async function fetchAdvice() {
-    const res = await axios.get("https://api.themotivate365.com/stoic-quote");
-    return res.data;
+    try {
+      const config = {
+        headers: {
+          "X-Api-Key": import.meta.env.VITE_QUOTE_API_KEY,
+        },
+      };
+      const res = await axios.get(
+        "https://api.api-ninjas.com/v1/quotes",
+        config
+      );
+      return res.data[0];
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const { data, isLoading, isFetching, error, refetch } = useQuery({
@@ -54,7 +66,7 @@ const AdviceCard = () => {
       position="relative"
     >
       <Text color="hsl(150, 100%, 66%)" fontSize="12px" letterSpacing="1px">
-        {data.author ? data.author : "Anonymous"}
+        {data?.author ? data?.author : "Anonymous"}
       </Text>
       <Text
         as="q"
@@ -63,7 +75,7 @@ const AdviceCard = () => {
         fontWeight="700"
         lineHeight="7"
       >
-        {data.quote.replace(/[!@#$^*]/g, "")}
+        {data?.quote.replace(/[!@#$^*]/g, "")}
       </Text>
       <Center
         position="absolute"
