@@ -1,14 +1,13 @@
 import {
   Box,
-  Button,
   keyframes,
   usePrefersReducedMotion,
   Text,
   Circle,
 } from "@chakra-ui/react";
-import { zusColor } from "../theme/colors";
-import Task from "./Task";
-import { useStore } from "../store";
+import { zusColor } from "../../theme/colors";
+import Task from "../Task/Task";
+import { useStore } from "../../store";
 import { useEffect, useRef, useState } from "react";
 import AddTask from "./AddTask";
 import { AddIcon } from "@chakra-ui/icons";

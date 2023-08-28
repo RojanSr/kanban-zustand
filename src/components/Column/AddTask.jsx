@@ -1,9 +1,9 @@
 import { Box, Button, Input, Text } from "@chakra-ui/react";
 import React, { forwardRef, useState } from "react";
-import { useStore } from "../store";
+import { useStore } from "../../store";
 import { TbLayoutKanban } from "react-icons/tb";
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
-import { zusColor } from "../theme/colors";
+import { zusColor } from "../../theme/colors";
 
 const AddTask = forwardRef((props, ref) => {
   const [text, setText] = useState("");

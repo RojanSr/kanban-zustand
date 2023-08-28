@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { BsGithub, BsFillJournalBookmarkFill } from "react-icons/bs";
 import { AiFillHome } from "react-icons/ai";
 import { GiNetworkBars } from "react-icons/gi";
-import { kanban_routes } from "../routes/routes.constant";
+import { kanban_routes } from "../../routes/routes.constant";
 import { SettingsIcon } from "@chakra-ui/icons";
 
 const Header = () => {

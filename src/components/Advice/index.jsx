@@ -1,8 +1,10 @@
-import { Box, Center, Divider, Spinner, Text } from "@chakra-ui/react";
+import { Box, Center, Divider, Text } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { BsFillDice5Fill, BsPauseFill } from "react-icons/bs";
 import React from "react";
 import axios from "axios";
+import AdviceSkeleton from "./Skeleton";
+import { RepeatIcon } from "@chakra-ui/icons";
 
 const AdviceCard = () => {
   async function fetchAdvice() {
@@ -38,7 +40,6 @@ const AdviceCard = () => {
       textAlign="center"
       flexDirection="column"
       bg="hsl(217, 19%, 24%)"
-      // gap="16px"
       borderRadius="12px"
       color="#fff"
       py={6}
@@ -49,11 +50,19 @@ const AdviceCard = () => {
       position="relative"
     >
       {isFetching || isLoading ? (
-        <Spinner color="hsl(193, 38%, 86%)" size="lg" />
+        <AdviceSkeleton />
       ) : isError ? (
-        <Text>
-          Unable to reach. Please try checking you internet connection
-        </Text>
+        <>
+          <Text color="red.400">
+            Unable to reach. Please try checking you internet connection
+          </Text>
+          <RepeatIcon
+            onClick={refetch}
+            fontSize="22px"
+            mt={3}
+            cursor="pointer"
+          />
+        </>
       ) : (
         <>
           <Text color="hsl(150, 100%, 66%)" fontSize="12px" letterSpacing="1px">

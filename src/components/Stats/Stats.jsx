@@ -1,7 +1,7 @@
 import { Box, Text } from "@chakra-ui/react";
 import React from "react";
-import { useStore } from "../store";
-import { zusColor } from "../theme/colors";
+import { useStore } from "../../store";
+import { zusColor } from "../../theme/colors";
 
 const Stats = () => {
   const completedTask = useStore((store) => store.completedTasks);

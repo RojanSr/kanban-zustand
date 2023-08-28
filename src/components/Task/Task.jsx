@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Box, Progress } from "@chakra-ui/react";
-import { zusColor } from "../theme/colors";
-import { useStore } from "../store";
+import { zusColor } from "../../theme/colors";
+import { useStore } from "../../store";
 import { DeleteIcon } from "@chakra-ui/icons";
 import ConfettiExplosion from "react-confetti-explosion";
+import FactCard from "../Fact";
 
 export default function Task({ id }) {
   const [done, setDone] = useState(false);
@@ -29,7 +30,6 @@ export default function Task({ id }) {
   }
 
   useEffect(() => {
-    // console.log("i run once");
     // Array of task id with status "Done"
     const completedTasksId = completedTasks.map((el) => el.id);
     if (task.status === "Done") {
@@ -93,6 +93,7 @@ export default function Task({ id }) {
       </Box>
 
       {done && <ConfettiExplosion />}
+      {done && <FactCard open={done} />}
     </Box>
   );
 }

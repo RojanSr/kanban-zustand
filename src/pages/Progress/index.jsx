@@ -23,11 +23,11 @@ const UserProgress = () => {
   const prevThreshold = useStore((store) => store.progress.prevThreshold);
 
   function updatePercentage() {
-    let per = (taskCompletedInRange / range) * 100;
+    let per = (taskCompletedInRange / threshold) * 100;
     if (per === 100) {
       per = 0;
     }
-    incrementPercentage(per);
+    incrementPercentage(Math.round(per));
   }
 
   useEffect(() => {
