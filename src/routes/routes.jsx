@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import PageSettings from "../pages/Settings";
-import UserProgress from "../pages/Progress";
 import Layout from "../Layout/layout";
+import ProgressPage from "../pages/Progress";
 
 export const router = createBrowserRouter([
   {
@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
     path: "/progress",
     element: (
       <Layout>
-        <UserProgress />
+        <ProgressPage />
       </Layout>
     ),
   },
