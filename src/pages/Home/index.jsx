@@ -2,7 +2,7 @@ import React from "react";
 import Stats from "../../components/Stats/Stats";
 import { Box } from "@chakra-ui/react";
 import Column from "../../components/Column/Column";
-import UserProgress from "../Progress";
+import UserProgress from "../../components/Progress";
 import AdviceCard from "../../components/Advice";
 
 const HomePage = () => {

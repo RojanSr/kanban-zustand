@@ -17,17 +17,20 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const doneMessages = [
-  "Great Job!",
-  "You're Doing Great",
-  "Brilliant!",
-  "Nice Job!",
+  { header: "Great Job!", msg: "Don't forget to hydrate yourself" },
+  {
+    header: "You're Doing Great",
+    msg: "Never gonna give you up, Never gonna let you down",
+  },
+  { header: "Brilliant!", msg: "Consider taking a break." },
+  { header: "Nice Job!", msg: "Go for a walk" },
 ];
 
 const FactCard = (props) => {
   async function fetchFunFact() {
     const res = await axios.get("https://api.api-ninjas.com/v1/facts?limit=1", {
       headers: {
-        "X-Api-Key": import.meta.env.VITE_QUOTE_API_KEY,
+        "X-Api-Key": import.meta.env.VITE_API_NINJA_KEY,
       },
     });
     return res.data[0];
@@ -36,8 +39,7 @@ const FactCard = (props) => {
   const { data, isLoading, isFetching, isError } = useQuery({
     queryKey: ["funFactData"],
     queryFn: fetchFunFact,
-    staleTime: 60 * 1000, // 1 minute
-    cacheTime: Infinity,
+    staleTime: 0,
     refetchOnWindowFocus: false,
   });
 
@@ -63,24 +65,38 @@ const FactCard = (props) => {
           transform="translate(50%, -50%)"
         >
           <ModalHeader mb={-4}>
-            {doneMessages[Math.floor(Math.random() * doneMessages.length)]}
+            {
+              doneMessages[Math.floor(Math.random() * doneMessages.length)]
+                .header
+            }
           </ModalHeader>
           <Box px={5} my={2}>
             <Divider />
           </Box>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <Text fontSize="16px">Cool your brain with a fun fact</Text>
-
             {isLoading || isFetching ? (
-              <Spinner />
-            ) : (
-              <Text mt={3} fontSize="14px">
-                <Text as="span" fontWeight="600" color={zusColor.done}>
-                  Fun Fact:{" "}
-                </Text>
-                {data?.fact}
+              <Spinner my={2} />
+            ) : isError ? (
+              <Text color="red.400">
+                Error Encountered. Try checking your internet connnection
               </Text>
+            ) : (
+              <>
+                <Text fontSize="15px" as="i">
+                  {
+                    doneMessages[
+                      Math.floor(Math.random() * doneMessages.length)
+                    ].msg
+                  }
+                </Text>
+                <Text mt={3} fontSize="14px">
+                  <Text as="span" fontWeight="600" color={zusColor.done}>
+                    Fun Fact:{" "}
+                  </Text>
+                  {data?.fact}
+                </Text>
+              </>
             )}
           </ModalBody>
         </ModalContent>

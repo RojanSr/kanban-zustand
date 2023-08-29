@@ -8,7 +8,7 @@ import {
 import { zusColor } from "../../theme/colors";
 import Task from "../Task/Task";
 import { useStore } from "../../store";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import AddTask from "./AddTask";
 import { AddIcon } from "@chakra-ui/icons";
 
@@ -18,7 +18,6 @@ to {box-shadow: 0 0 0 14px rgba(255, 255, 255, 0);}
 `;
 
 export default function Column({ state }) {
-  const [open, setOpen] = useState(false);
   const [drop, setDrop] = useState(false);
 
   const tasks = useStore((store) =>
@@ -30,33 +29,15 @@ export default function Column({ state }) {
   const draggedTask = useStore((store) => store.draggedTask);
   const moveTask = useStore((store) => store.moveTask);
 
-  const inpRef = useRef(null);
-
-  useEffect(() => {
-    if (open) {
-      inpRef.current.focus();
-    }
-  }, [open]);
+  const addTaskRef = useRef(null);
 
   function toggleOpen() {
-    setOpen((prev) => !prev);
+    addTaskRef.current.openModal();
   }
 
   function findProgress() {
     let progress;
-    switch (state) {
-      case "Planned":
-        progress = 0;
-        break;
-      case "Ongoing":
-        progress = null;
-        break;
-      case "Done":
-        progress = 100;
-        break;
-      default:
-        progress = 0;
-    }
+    progress = state === "Done" ? 100 : 0;
     return progress;
   }
 
@@ -141,7 +122,7 @@ export default function Column({ state }) {
         <Task id={task.id} key={task.id} />
       ))}
 
-      {open && <AddTask toggleOpen={toggleOpen} ref={inpRef} state={state} />}
+      <AddTask toggleOpen={toggleOpen} ref={addTaskRef} state={state} />
     </Box>
   );
 }

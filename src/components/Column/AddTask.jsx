@@ -1,16 +1,45 @@
-import { Box, Button, Input, Text } from "@chakra-ui/react";
-import React, { forwardRef, useState } from "react";
+import {
+  Box,
+  Button,
+  Input,
+  Text,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  useDisclosure,
+  FormControl,
+} from "@chakra-ui/react";
+import React, {
+  forwardRef,
+  useState,
+  useImperativeHandle,
+  useRef,
+} from "react";
 import { useStore } from "../../store";
-import { TbLayoutKanban } from "react-icons/tb";
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { zusColor } from "../../theme/colors";
 
 const AddTask = forwardRef((props, ref) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const initialRef = useRef(null);
   const [text, setText] = useState("");
 
   const addTask = useStore((store) => store.addTask);
 
-  function handleSubmit() {
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        openModal() {
+          onOpen();
+        },
+      };
+    },
+    []
+  );
+
+  function handleSubmit(e) {
+    e.preventDefault();
     if (text.trim() !== "") {
       let progressVal;
       switch (props.state) {
@@ -28,74 +57,83 @@ const AddTask = forwardRef((props, ref) => {
       }
       addTask(text, props.state, progressVal, crypto.randomUUID());
       setText("");
-      props.toggleOpen();
+      onClose();
     }
   }
 
   function handleClose() {
     setText("");
-    props.toggleOpen();
+    onClose();
   }
 
-  function handleKeyPress(e) {
-    if (e.key === "Enter") {
-      handleSubmit();
-    }
-    if (e.key === "Escape") {
-      handleClose();
-    }
-  }
   return (
-    <Box
-      position="fixed"
-      top="50%"
-      left="50%"
-      transform="translate(-50%, -50%)"
-      bg="#00171F"
-      p={4}
-      borderRadius="6px"
-      onKeyUp={handleKeyPress}
-      zIndex="9"
-    >
-      <Box display="flex" w="inherit" justifyContent="center" mb={2}>
-        <Text fontSize="18px" fontWeight="700">
-          Add Task
-        </Text>
-      </Box>
-      <Box>
-        <Input
-          onChange={(e) => setText(e.target.value)}
-          value={text}
-          ref={ref}
-          my={4}
-        ></Input>
-        <Box
-          display="flex"
-          alignItems="center"
-          gap="12px"
-          justifyContent="center"
+    <>
+      <Modal isOpen={isOpen} onClose={onClose} initialFocusRef={initialRef}>
+        <ModalOverlay />
+        <ModalContent
+          top="25%"
+          bg="#00171F"
+          p={4}
+          borderRadius="6px"
+          zIndex="9"
+          w="300px"
         >
-          <Button
-            onClick={handleSubmit}
-            size="sm"
-            mt={4}
-            colorScheme="green"
-            _hover={{ transform: "scale(1.1)", transition: "0.2s ease-in-out" }}
-          >
-            <CheckIcon boxSize={4} />
-          </Button>
-          <Button
-            onClick={handleClose}
-            size="sm"
-            mt={4}
-            colorScheme="red"
-            _hover={{ transform: "scale(1.1)", transition: "0.2s ease-in-out" }}
-          >
-            <CloseIcon boxSize={4} />
-          </Button>
-        </Box>
-      </Box>
-    </Box>
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <Box display="flex" justifyContent="center" mb={2}>
+              <Text fontSize="18px" fontWeight="700" color={zusColor.text}>
+                Add Task
+              </Text>
+            </Box>
+            <Box>
+              <Input
+                onChange={(e) => setText(e.target.value)}
+                value={text}
+                ref={initialRef}
+                my={2}
+                placeholder="Enter Task Here"
+                _placeholder={{
+                  color: zusColor.text,
+                  opacity: 0.4,
+                }}
+                color={zusColor.text}
+                focusBorderColor={zusColor.ongoing}
+              ></Input>
+              <Box
+                display="flex"
+                alignItems="center"
+                gap="12px"
+                justifyContent="center"
+              >
+                <Button
+                  onClick={handleSubmit}
+                  size="sm"
+                  mt={4}
+                  colorScheme="green"
+                  _hover={{
+                    transform: "scale(1.1)",
+                    transition: "0.2s ease-in-out",
+                  }}
+                >
+                  <CheckIcon boxSize={4} />
+                </Button>
+                <Button
+                  onClick={handleClose}
+                  size="sm"
+                  mt={4}
+                  colorScheme="red"
+                  _hover={{
+                    transform: "scale(1.1)",
+                    transition: "0.2s ease-in-out",
+                  }}
+                >
+                  <CloseIcon boxSize={4} />
+                </Button>
+              </Box>
+            </Box>
+          </form>
+        </ModalContent>
+      </Modal>
+    </>
   );
 });
 

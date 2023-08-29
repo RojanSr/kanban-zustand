@@ -11,7 +11,7 @@ const AdviceCard = () => {
     try {
       const config = {
         headers: {
-          "X-Api-Key": import.meta.env.VITE_QUOTE_API_KEY,
+          "X-Api-Key": import.meta.env.VITE_API_NINJA_KEY,
         },
       };
       const res = await axios.get(
@@ -77,7 +77,7 @@ const AdviceCard = () => {
             mt={2}
             mb={1}
           >
-            {data?.quote?.length > 200
+            {data?.quote?.length > 250
               ? refetch()
               : data?.quote?.replace(/[!@#$^*]/g, "")}
           </Text>
