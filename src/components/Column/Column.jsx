@@ -104,9 +104,6 @@ export default function Column({ state }) {
             {state}
           </Text>
         </Box>
-        {/* <Button size="sm" _hover={{ bg: zusColor.grayLight }}>
-          Add
-        </Button> */}
         <Circle
           onClick={toggleOpen}
           cursor="pointer"
